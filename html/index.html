@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="ContactApp">
+
+<head>
+    <title> Contact Manager </title>
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css" />
+</head>
+
+<body ng-controller="ContactCtrl as vm">
+    <section class="container">
+        <h3>Add Contact </h3>
+        <hr />
+        <form>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
+                    <label for="firstName">First Name</label>
+                    <input class="form-control" type="text" name="firstName" id="firstName" ng-model="contact.FirstName" />
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
+                    <label for="lastName">Last Name</label>
+                    <input class="form-control" type="text" name="lastName" id="lastName" ng-model="contact.LastName" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
+                    <label for="email">Email</label>
+                    <input class="form-control" type="email" name="email" id="email" ng-model="contact.Email" />
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input class="form-control" type="number" name="phoneNumber" id="phoneNumber" ng-model="contact.PhoneNumber" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
+                    <label for="status">Status</label>
+                    <select class="form-control" name="status" id="status" ng-model="contact.Status">
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12  col-xs-12 text-center">
+                    <button ng-hide="isEdit" class="btn btn-success" ng-click="addContact()"> Add Contact </button>
+                    <div ng-show="isEdit">
+                        <button title="Edit Contact" class="btn btn-default" ng-click="clearContact()"> Cancel </button>
+                        <button title="Delete Contact" class="btn btn-primary" ng-click="updateContact()"> Update Contact </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <br />
+        <br />
+        <section>
+            <h3>Contacts List</h3>
+            <hr />
+            <p ng-if="contacts.length==0" class="text-danger">No contacts have been added</p>
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-bordered table-hover">
+                        <tr ng-repeat="c in contacts">
+                            <td width="20%">{{c.FirstName}}</td>
+                            <td width="20%">{{c.LastName}}</td>
+                            <td width="25%">{{c.Email}}</td>
+                            <td width="15%">{{c.PhoneNumber}}</td>
+                            <td width="10%">{{c.Status}}</td>
+                            <td width="10%">
+                                <button class="btn btn-primary btn-sm" ng-click="editContact(c,$index)"><i class="glyphicon glyphicon-edit"></i></button>
+                                <button class="btn btn-danger btn-sm" ng-click="deleteContact($index)"><i class="glyphicon glyphicon-trash"></i></button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </section>
+    <script src="../plugins/angular/angular.min.js"></script>
+    <script src="../js/app.js"></script>
+    <script src="../js/contact.service.js"></script>
+    <script src="../js/contact.controller.js"></script>
+</body>
+
+</html>
